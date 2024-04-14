@@ -6,6 +6,7 @@ class Globals:
 
     _instance = None
     screenSize = 0,0
+    assetsDir = "assets"
 
     def __new__(cls):
         if cls._instance == None:

@@ -9,13 +9,20 @@ import pygame as py
 def main():
     #TODO MIXER AND FONTS ERRORS HERE
     glb = globals.Globals()
-    glb.size = 800,600
+    glb.screenSize = 800,600
 
     py.init()
-    print(py.display.get_driver())
-    try:
-        screen = py.display.set_mode(glb.size,py.OPENGL)
-        py.display.set_caption("SNAKE")
-    except:
-        print("Error initializing screen")
+    if py.display.get_driver() == "Windows":
+        try:
+            screen = py.display.set_mode(glb.screenSize,py.OPENGL)
+            py.display.set_caption("SNAKE")
+        except:
+            return
+    else:         
+        try:
+            screen = py.display.set_mode(glb.screenSize,py.FULLSCREEN)
+        except:
+            print("Error graphics initializing driver.")
+            return
+    py.display.set_caption("SNAKE")
     game_manager.init(glb,screen)
