@@ -20,7 +20,7 @@ def main():
             return
     else:         
         try:
-            screen = py.display.set_mode(glb.screenSize,py.FULLSCREEN)
+            screen = py.display.set_mode(glb.screenSize)
         except:
             print("Error graphics initializing driver.")
             return
