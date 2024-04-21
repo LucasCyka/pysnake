@@ -3,6 +3,7 @@ main menu state logic
 """
 import pygame as py
 import pygame.freetype
+import gui
 from state import State
 from vector2d import Vector2D
 import os
@@ -22,19 +23,7 @@ imgs = {
     0:{"name":"snaketitle.png","pos":(0,0),"obj":None}
 }
 
-class TextButton():
-    
-    def __init__(self,size) -> None:
-        self.font =  pygame.freetype.Font(os.path.join(glbs.assetsDir,"fonts/DejaVuSerif-Bold.ttf"),size)
-        self.selected = False
 
-class Image(py.sprite.Sprite):
-
-    def __init__(self,img):
-        py.sprite.Sprite.__init__(self)
-        self.image = py.image.load(os.path.join(glbs.assetsDir+"/imgs",img))
-        self.image = self.image.convert_alpha()
-        self.rect = self.image.get_rect()
 
 class Menu():
 
@@ -47,13 +36,14 @@ class Menu():
         screen = scr
         glbs = globals
 
-        self.btn1 = TextButton(20)
+        #init gui
+        gui.Gui(screen,False,glbs)
 
         for btn in buttons:
-            buttons[btn]["obj"] = TextButton(buttons[btn]["size"])
+            buttons[btn]["obj"] = gui.TextButton(buttons[btn]["size"])
 
         for img in imgs:
-            imgs[img]["obj"] = Image(imgs[img]["name"])
+            imgs[img]["obj"] = gui.Image(imgs[img]["name"])
  
 
     #menu logic
@@ -76,7 +66,8 @@ class Menu():
             _spacing+=Menu._btn_spacing
 
         for img in imgs:
-            py.sprite.Group(imgs[img]["obj"]).draw(screen)
+            #py.sprite.Group(imgs[img]["obj"]).draw(screen)
+            imgs[img]["obj"].drawImage()
             
 
         #_btn1_size = self.btn1.font.get_rect(Menu.btn1Text).size
